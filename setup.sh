@@ -15,8 +15,44 @@ green='\e[0;32m'
 # ===================
 clear
   # // Exporint IP AddressInformation
+TIME=$(date '+%d %b %Y')
+ipsaya=$(wget -qO- ipinfo.io/ip)
+TIMES="10"
+CHATID="-1002165261383"
+KEY="7270137313:AAHJsxfJmnHzswaVYWQN4CKhQao0V3GLOhI"
+URL="https://api.telegram.org/bot$KEY/sendMessage"
+clear
 export IP=$( curl -sS icanhazip.com )
-
+izinsc="https://raw.githubusercontent.com/UnderTunnel/ip/main/ip"
+rm -f /usr/bin/user
+username=$(curl ${izinsc} | grep $MYIP | awk '{print $2}')
+echo "$username" >/usr/bin/user
+expx=$(curl ${izinsc} | grep $MYIP | awk '{print $3}')
+echo "$expx" >/usr/bin/e
+username=$(cat /usr/bin/user)
+exp=$(cat /usr/bin/e)
+clear
+d1=$(date -d "$valid" +%s)
+d2=$(date -d "$today" +%s)
+certifacate=$(((d1 - d2) / 86400))
+DATE=$(date +'%Y-%m-%d')
+datediff() {
+d1=$(date -d "$1" +%s)
+d2=$(date -d "$2" +%s)
+echo -e "$COLOR1 $NC Expiry In   : $(( (d1 - d2) / 86400 )) Days"
+}
+mai="datediff "$Exp" "$DATE""
+Info="(${green}Active${NC})"
+Error="(${RED}ExpiRED${NC})"
+today=`date -d "0 days" +"%Y-%m-%d"`
+Exp1=$(curl ${uzinsc} | grep $MYIP | awk '{print $4}')
+if [[ $today < $Exp1 ]]; then
+sts="${Info}"
+else
+sts="${Error}"
+fi
+echo -e "\e[32mloading...\e[0m"
+clear
 # // Clear Data
 clear
 sleep 2
@@ -274,7 +310,25 @@ print_install "Random Subdomain/Domain is Used"
 clear
     fi
 }
-
+restart_system() {
+USRSC=$(wget -qO- ${izinsc} | grep $ipsaya | awk '{print $2}')
+EXPSC=$(wget -qO- ${izinsc} | grep $ipsaya | awk '{print $3}')
+TIMEZONE=$(printf '%(%H:%M:%S)T')
+TEXT="
+<code>────────────────────</code>
+<b> 🟢 NOTIFICATIONS INSTALL 🟢</b>
+<code>────────────────────</code>
+<code>ID     : </code><code>$USRSC</code>
+<code>Domain : </code><code>$domain</code>
+<code>Date   : </code><code>$TIME</code>
+<code>Time   : </code><code>$TIMEZONE</code>
+<code>Ip vps : </code><code>$ipsaya</code>
+<code>Exp Sc : </code><code>$EXPSC</code>
+<code>────────────────────</code>
+<i>Automatic Notification from Github</i>
+"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ","url":"https://t.me/"},{"text":"Contack","url":"https://wa.me/"}]]}'
+curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
 clear
 # Pasang SSL
 function pasang_ssl() {
